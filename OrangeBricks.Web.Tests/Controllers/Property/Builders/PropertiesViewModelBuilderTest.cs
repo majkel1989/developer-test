@@ -52,8 +52,10 @@ namespace OrangeBricks.Web.Tests.Controllers.Property.Builders
                 Search = "Smith Street"
             };
 
+            var currentUserId = "Test1";
+
             // Act
-            var viewModel = builder.Build(query);
+            var viewModel = builder.Build(query, currentUserId);
 
             // Assert
             Assert.That(viewModel.Properties.Count, Is.EqualTo(1));
@@ -80,8 +82,10 @@ namespace OrangeBricks.Web.Tests.Controllers.Property.Builders
                 Search = "Town"
             };
 
+            var currentUserId = "Test1";
+
             // Act
-            var viewModel = builder.Build(query);
+            var viewModel = builder.Build(query, currentUserId);
 
             // Assert
             Assert.That(viewModel.Properties.Count, Is.EqualTo(1));

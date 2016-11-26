@@ -3,6 +3,7 @@ using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
 using OrangeBricks.Web.Controllers.Property.ViewModels;
 using OrangeBricks.Web.Models;
+using System.Data.Entity;
 
 namespace OrangeBricks.Web.Controllers.Property.Builders
 {
@@ -15,10 +16,11 @@ namespace OrangeBricks.Web.Controllers.Property.Builders
             _context = context;
         }
 
-        public PropertiesViewModel Build(PropertiesQuery query)
+        public PropertiesViewModel Build(PropertiesQuery query, string currentUserId)
         {
             var properties = _context.Properties
-                .Where(p => p.IsListedForSale);
+                .Where(p => p.IsListedForSale)
+                .Include(i => i.Offers);
 
             if (!string.IsNullOrWhiteSpace(query.Search))
             {
@@ -30,13 +32,13 @@ namespace OrangeBricks.Web.Controllers.Property.Builders
             {
                 Properties = properties
                     .ToList()
-                    .Select(MapViewModel)
+                    .Select(p => MapViewModel(p, currentUserId))
                     .ToList(),
                 Search = query.Search
             };
         }
 
-        private static PropertyViewModel MapViewModel(Models.Property property)
+        private static PropertyViewModel MapViewModel(Models.Property property, string currentUserId)
         {
             return new PropertyViewModel
             {
@@ -44,7 +46,9 @@ namespace OrangeBricks.Web.Controllers.Property.Builders
                 StreetName = property.StreetName,
                 Description = property.Description,
                 NumberOfBedrooms = property.NumberOfBedrooms,
-                PropertyType = property.PropertyType
+                PropertyType = property.PropertyType,
+                IsCurrentUserOfferAccepted = property.Offers
+                    .Any(o => o.Status == OfferStatus.Accepted && o.BuyerId == currentUserId)
             };
         }
     }

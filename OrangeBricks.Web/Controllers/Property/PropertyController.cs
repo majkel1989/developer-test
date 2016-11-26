@@ -23,7 +23,7 @@ namespace OrangeBricks.Web.Controllers.Property
         public ActionResult Index(PropertiesQuery query)
         {
             var builder = new PropertiesViewModelBuilder(_context);
-            var viewModel = builder.Build(query);
+            var viewModel = builder.Build(query, User.Identity.GetUserId());
 
             return View(viewModel);
         }
@@ -86,6 +86,8 @@ namespace OrangeBricks.Web.Controllers.Property
         public ActionResult MakeOffer(MakeOfferCommand command)
         {
             var handler = new MakeOfferCommandHandler(_context);
+
+            command.BuyerId = User.Identity.GetUserId();
 
             handler.Handle(command);
 

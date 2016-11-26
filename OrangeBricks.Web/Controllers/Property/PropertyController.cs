@@ -93,5 +93,26 @@ namespace OrangeBricks.Web.Controllers.Property
 
             return RedirectToAction("Index");
         }
+
+        [OrangeBricksAuthorize(Roles = "Buyer")]
+        public ActionResult BookView(int id)
+        {
+            var builder = new BookViewViewModelBuilder(_context);
+            var viewModel = builder.Build(id);
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [OrangeBricksAuthorize(Roles = "Buyer")]
+        public ActionResult BookView(BookViewCommand command)
+        {
+            var handler = new BookViewCommandHandler(_context);
+
+            command.BuyerId = User.Identity.GetUserId();
+
+            handler.Handle(command);
+
+            return RedirectToAction("Index");
+        }
     }
 }

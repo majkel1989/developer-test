@@ -18,6 +18,7 @@ namespace OrangeBricks.Web.Models
 
         public IDbSet<Property> Properties { get; set; }
         public IDbSet<Offer> Offers { get; set; }
+        public IDbSet<PropertyView> Views { get; set; }
 
         public new void SaveChanges()
         {
@@ -29,6 +30,7 @@ namespace OrangeBricks.Web.Models
     {
         IDbSet<Property> Properties { get; set; }
         IDbSet<Offer> Offers { get; set; }
+        IDbSet<PropertyView> Views { get; set; }
 
         void SaveChanges();
     }

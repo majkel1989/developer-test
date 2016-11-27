@@ -39,3 +39,9 @@ Good luck!
 
 * Do I need to deploy the application?
     * If you wish to demonstrate your working app then you may deploy it to Azure on a free trial account. This is not mandatory.
+
+## Sample code review
+
+* Existing sample of code looked for me clean and easy to read. First time I had contact with Code First Migrations so I had to take a close look, my first impression is very good but I will need some more training of best practices. Also I have small experience with Unit Tests, unfortunately I couldn't run them, got an empty Test Explorer view and Test output so I was unable to prepare any new for additional features. I used newest standards of Microsoft MVC only at home, on my previous job there was an implementation of some internal solutions for .NET MVC but it was way more complex than it should be. So I finally really like that sample of code you provided. Also I really liked command handlers as a separate layer of controllers, it makes code more readable. As a summary I would like to improve my skills in provided technology because I really enjoyed it.
+
+* In future to avoid unreadable code we could provide separate views for Sellers and Buyers. For example Index property view have some functionality only for Sellers but also visible for Buyers. At this point I decided just to show buttons if a logged in person Role is a Buyer. If Seller have no need to look at this list we could show that view only for Buyers and it will also solve it.

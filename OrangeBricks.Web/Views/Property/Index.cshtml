@@ -30,18 +30,21 @@
     <p>@property.NumberOfBedrooms bedroom @property.PropertyType</p>
     <p>@property.Description</p>
 
-    if (property.IsCurrentUserOfferAccepted)
+    if (User.IsInRole("Buyer"))
     {
-        <span>Your offer has been accepted!</span>
-    }
-    else
-    {
-        <a href="@Url.Action("MakeOffer", "Property", new {id = property.Id})" class="btn btn-primary">
-            Make Offer
-        </a>
+        if (property.IsCurrentUserOfferAccepted)
+        {
+            <span>Your offer has been accepted!</span>
+        }
+        else
+        {
+            <a href="@Url.Action("MakeOffer", "Property", new {id = property.Id})" class="btn btn-primary">
+                Make Offer
+            </a>
 
-        <a href="@Url.Action("BookView", "Property", new {id = property.Id})" class="btn btn-primary">
-            Book View
-        </a>
+            <a href="@Url.Action("BookView", "Property", new {id = property.Id})" class="btn btn-primary">
+                Book View
+            </a>
+        }
     }
 }
